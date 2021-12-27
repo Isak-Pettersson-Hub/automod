@@ -1,0 +1,3 @@
+# automod
+
+Discord bot
