@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+// Import the necessary discord.js classes
+require('dotenv').config();
 import { readdirSync } from 'fs';
 import path from 'path';
 
 import { Intents } from 'discord.js';
 
-import { token } from './config.json';
 import Client from './lib/Client';
 
 // Create a new client instance
@@ -48,7 +49,7 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', async () => {
-  const guild = client.guilds.cache.get('729087858287050752');
+  const guild = client.guilds.cache.get(process.env.GUILD_ID);
   await guild.commands
     .set(arrayOfCommands.map((command) => command.data))
     .then(async (command) => {
@@ -93,4 +94,4 @@ client.on('ready', async () => {
 });
 
 // Login to Discord with your client's token
-client.login(token);
+client.login(process.env.TOKEN);

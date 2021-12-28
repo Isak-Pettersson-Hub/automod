@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+require('dotenv').config();
 import { readdirSync } from 'fs';
 import path from 'path';
 
 import { REST } from '@discordjs/rest';
-
-import { clientId, guildId, token } from './config.json';
 
 const commands = [];
 
@@ -19,11 +18,14 @@ for (const file of commandFiles) {
   commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 rest
-  .put(`/applications/${clientId}/guilds/${guildId}/commands`, {
-    body: commands,
-  })
+  .put(
+    `/applications/${process.env.CLIENT_ID}/guilds/${process.env.GUILD_ID}/commands`,
+    {
+      body: commands,
+    }
+  )
   .then(() => console.log('Successfully registered application commands.'))
   .catch(console.error);
