@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// Import the necessary discord.js classes
 require('dotenv').config();
 import { readdirSync } from 'fs';
 import path from 'path';
 
 import { Intents } from 'discord.js';
 
-import Client from './lib/Client';
+import Client from './models/Client';
+import Command from './models/Command';
+import Observer from './models/Observer';
 
 // Create a new client instance
 const client = new Client({
@@ -15,46 +16,44 @@ const client = new Client({
 
 // Registering event handlers
 
-const eventFiles = readdirSync(path.resolve(__dirname, './events')).filter(
+const eventFiles = readdirSync(path.resolve(__dirname, './observers')).filter(
   (file) => file.endsWith('.ts')
 );
 
 eventFiles.forEach(async (file) => {
-  const event = await import(`./events/${file}`);
+  const module = await import(`./observers/${file}`);
 
-  if (event.once) {
-    client.once(event.name, (...args) => event.process(client, ...args));
+  const observer: Observer = new module.default();
+
+  if (observer.once) {
+    client.once(observer.event, (...args) => observer.update(client, ...args));
   } else {
-    client.on(event.name, (...args) => event.process(client, ...args));
+    client.on(observer.event, (...args) => observer.update(client, ...args));
   }
 });
 
-const commandFiles = readdirSync(path.resolve(__dirname, 'commands')).filter(
+const commandFiles = readdirSync(path.resolve(__dirname, './commands')).filter(
   (file) => file.endsWith('.ts')
 );
 
-const arrayOfCommands = [];
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
+  const module = require(`./commands/${file}`);
 
+  const command: Command = new module.default(client);
   // Set a new item in the Collection
   // With the key as the command name and the value as the exported module
   client.commands.set(command.data.name, command);
 
-  if (['MESSAGE', 'USER'].includes(command?.data.type))
-    delete command.data.description;
-  if (command.userPermissions) command.data.defaultPermission = false;
-
-  arrayOfCommands.push(command);
+  if (command.userPermissions) command.data.setDefaultPermission(false);
 }
 
 client.on('ready', async () => {
   const guild = client.guilds.cache.get(process.env.GUILD_ID);
   await guild.commands
-    .set(arrayOfCommands.map((command) => command.data))
+    .set(Array.from(client.commands.values()).map((command) => command.data))
     .then(async (command) => {
       function getRoles(commandName: string) {
-        const permissions = arrayOfCommands.find(
+        const permissions = Array.from(client.commands.values()).find(
           (command) => command.data.name === commandName
         ).userPermissions;
 
