@@ -1,19 +1,18 @@
-import Client from '../models/Client';
 import Observer from '../models/Observer';
 
 export default class ReadyObserver extends Observer {
   public readonly event: string = 'interactionCreate';
   public readonly once: boolean = false;
 
-  public async update(client: Client, interaction) {
+  public async update(interaction) {
     if (!interaction.isCommand()) return;
 
-    const command = client.commands.get(interaction.commandName);
+    const command = this.client.commands.get(interaction.commandName);
 
     if (!command) return;
 
     try {
-      await command.execute(client, interaction);
+      await command.execute(interaction);
     } catch (error) {
       console.error(error);
       await interaction.reply({
