@@ -21,7 +21,7 @@ export default class HelpCommand extends Command {
       })
       .setThumbnail(this.client.user.displayAvatarURL())
       .setDescription(
-        'Hey, This is Tune! A discord bot which aims to provide rich quality music to everyone.'
+        "Automod is a powerful utility & moderation bot for Hollow's Discord."
       )
       .addField(
         `All commands [${this.client.commands.size}]: `,

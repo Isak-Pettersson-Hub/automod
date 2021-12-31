@@ -45,13 +45,11 @@ export default class HelpCommand extends Command {
         iconURL: guildMember.user.displayAvatarURL(),
       })
       .setDescription(`${guildMember.user}`)
-      .addField(
-        '__Joined__',
-        `${guildMember.joinedAt.toUTCString()} (Coordinated Universal Time)`
-      )
+      .addField('__Joined__', guildMember.joinedAt.toUTCString(), true)
       .addField(
         '__Registered__',
-        `${guildMember.user.createdAt.toUTCString()} (Coordinated Universal Time)`
+        guildMember.user.createdAt.toUTCString(),
+        true
       )
       .addField(
         `__Roles__ [${guildMember.roles.cache.size}]`,
