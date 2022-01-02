@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { WalletImportFormatError } from '@bitauth/libauth';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { GuildMember, Interaction, MessageEmbed, User } from 'discord.js';
-
-const wait = require('util').promisify(setTimeout);
 
 import Command from '../models/Command';
+
+const wait = require('util').promisify(setTimeout);
 
 export default class PurgeCommand extends Command {
   public readonly userPermissions: string[] = ['ADMINISTRATOR'];
@@ -15,8 +15,6 @@ export default class PurgeCommand extends Command {
       option
         .setName('amount')
         .setDescription('The amount of messages to clear from channel.')
-        .setMinValue(1)
-        .setMaxValue(100)
         .setRequired(true)
     )
     .addChannelOption((option) =>
@@ -31,10 +29,10 @@ export default class PurgeCommand extends Command {
       interaction.options.getChannel('channel') || interaction.channel;
     const amount = interaction.options.getInteger('amount');
 
-    await interaction.deferReply();
+    await channel.bulkDelete(amount);
 
-    for (let i = 0; i < amount; i++) {
-      await channel.bulkDelete(1);
-    }
+    await interaction.reply(`Removed ${amount} of messages from ${channel}`);
+    await wait(2000);
+    interaction.deleteReply();
   }
 }

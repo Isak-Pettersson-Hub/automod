@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { GuildMember, Interaction, MessageEmbed, User } from 'discord.js';
+import { GuildMember } from 'discord.js';
 
 import Command from '../models/Command';
 

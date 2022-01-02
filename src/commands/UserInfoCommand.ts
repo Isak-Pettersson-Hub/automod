@@ -1,11 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SlashCommandBuilder } from '@discordjs/builders';
-import {
-  GuildMember,
-  Message,
-  MessageEmbed,
-  Permissions,
-  User,
-} from 'discord.js';
+import { GuildMember, MessageEmbed, User } from 'discord.js';
 
 import { permissions } from '../config.json';
 import Command from '../models/Command';

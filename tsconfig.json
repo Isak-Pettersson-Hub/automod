@@ -1,4 +1,6 @@
 ///<reference path="./node_modules/discord.js/typings/index.d.ts"/> 
+///<reference path="./node_modules/discord-api-types/rest/v9/webhook.d.ts"/> 
+///<reference path="./node_modules/discord-api-types/rest/v9/index.d.ts"/> 
 
 {
 
@@ -12,8 +14,13 @@
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
     "resolveJsonModule": true /* Include modules imported with .json extension. */,
     "skipLibCheck": true,
+    "sourceMap": true,
+    "noEmitOnError": true,
 
-    // "strict": true /* Enable all strict type-checking options. */,
+
+
+
+    "forceConsistentCasingInFileNames": true,
 
     /* Strict Type-Checking Options */
     // "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -45,6 +52,6 @@
   },
 
   "include": ["src/**/*.ts",],
-  "exclude": ["node_modules/**"],
+  "exclude": ["node_modules"],
   "compileOnSave": false
 }

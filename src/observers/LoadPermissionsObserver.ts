@@ -1,6 +1,5 @@
 import { Guild } from 'discord.js';
 
-import Client from '../models/Client';
 import Observer from '../models/Observer';
 
 export default class ReadyObserver extends Observer {
@@ -9,7 +8,7 @@ export default class ReadyObserver extends Observer {
 
   public fetchGuildRoles(guild: Guild, commandName: string) {
     const permissions = Array.from(this.client.commands.values()).find(
-      (command: any) => command.data.name === commandName
+      (command) => command.data.name === commandName
     ).userPermissions;
 
     if (!permissions) return null;
@@ -19,7 +18,7 @@ export default class ReadyObserver extends Observer {
     );
   }
 
-  public async update(...args: any[]) {
+  public async update() {
     const guild = this.client.guilds.cache.get(process.env.GUILD_ID);
     await guild.commands
       .set(

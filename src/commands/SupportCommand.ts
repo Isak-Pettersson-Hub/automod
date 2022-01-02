@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { inlineCode, SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { MessageEmbed } from 'discord.js';
 
 import Command from '../models/Command';

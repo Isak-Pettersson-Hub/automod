@@ -9,7 +9,7 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "build": "run-p build:*",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.module.json",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
@@ -44,10 +44,25 @@
   },
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
-    "@discordjs/builders": "^0.10.0",
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/collection": "^0.4.0",
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.7.5",
+    "@types/yt-search": "^2.3.2",
     "axios": "^0.24.0",
-    "discord.js": "^13.4.0",
-    "glob": "^7.2.0"
+    "discord-paginationembed": "^2.1.0",
+    "discord-player": "^5.2.0",
+    "discord.js": "^13.5.0",
+    "discord.js-pagination": "^1.0.3",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^4.4.0",
+    "glob": "^7.2.0",
+    "node-abort-controller": "^3.0.1",
+    "play-dl": "^1.6.9",
+    "ts-newsapi": "^1.0.0",
+    "tweetnacl": "^1.0.3",
+    "yt-search": "^2.10.3",
+    "ytdl-core": "^4.9.2"
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",

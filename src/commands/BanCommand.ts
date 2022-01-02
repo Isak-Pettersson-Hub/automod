@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { GuildMember, Interaction, MessageEmbed, User } from 'discord.js';
+import { GuildMember } from 'discord.js';
 
 import Command from '../models/Command';
 
@@ -24,9 +24,6 @@ export default class HelpCommand extends Command {
 
   public async execute(interaction) {
     const user = interaction.options.getUser('user');
-    const reason: string =
-      interaction.options.getString('reason') ||
-      `Ban by ${interaction.user.tag}: No reason was specified`;
 
     // Getting the guild memebr from user provided
     const member: GuildMember = await interaction.guild.members.fetch(user);
