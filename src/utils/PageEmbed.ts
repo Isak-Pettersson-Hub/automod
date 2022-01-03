@@ -5,6 +5,12 @@ import {
   ReactionCollector,
   User,
 } from 'discord.js';
+
+interface Field {
+  name: string;
+  value: string;
+}
+
 export default class PageEmbed {
   private currentPage = 0;
   private client: Client;
@@ -25,24 +31,26 @@ export default class PageEmbed {
     await interaction.reply({ embeds: [this.embeds[this.currentPage]] });
     this.message = await interaction.fetchReply();
 
-    await this.message.react('⏮️');
-    await this.message.react('◀️');
-    await this.message.react('▶️');
-    await this.message.react('⏭️');
-    await this.message.react('🗑️');
+    if (this.embeds.length > 1) {
+      await this.message.react('⏮️');
+      await this.message.react('◀️');
+      await this.message.react('▶️');
+      await this.message.react('⏭️');
+      await this.message.react('🗑️');
 
-    // Initialize collector
-    this.collector = this.message.createReactionCollector({
-      filter: this.filter,
-      time: this.timeout,
-    });
+      // Initialize collector
+      this.collector = this.message.createReactionCollector({
+        filter: this.filter,
+        time: this.timeout,
+      });
 
-    // Attaching event handlers
-    this.collector.on('collect', (reaction, user) =>
-      this.onCollectHandler(reaction, user)
-    );
+      // Attaching event handlers
+      this.collector.on('collect', (reaction, user) =>
+        this.onCollectHandler(reaction, user)
+      );
 
-    this.collector.on('end', (collected) => this.onEndHandler(collected));
+      this.collector.on('end', (collected) => this.onEndHandler(collected));
+    }
   }
 
   private loadCurrentPage() {

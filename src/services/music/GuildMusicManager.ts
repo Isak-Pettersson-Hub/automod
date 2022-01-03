@@ -17,6 +17,7 @@ export default class GuildMusicManager {
   private player: AudioPlayer;
   private channel: VoiceChannel & any;
   private musicQueue: Song[];
+  public playing: Song;
 
   public constructor(channel: VoiceChannel & any) {
     this.player = createAudioPlayer();
@@ -29,12 +30,11 @@ export default class GuildMusicManager {
   }
 
   public async load() {
-    const song = this.musicQueue[0];
-    console.log('1');
-    if (!song) return this.destroy();
-    console.log('2');
+    this.playing = this.musicQueue.shift();
 
-    const { stream, type } = await play.stream(song.url);
+    if (!this.playing) return this.destroy();
+
+    const { stream, type } = await play.stream(this.playing.url);
 
     const resource = createAudioResource(stream, {
       inputType: type,
@@ -55,7 +55,7 @@ export default class GuildMusicManager {
 
     this.musicQueue.push(song);
 
-    if (!this.musicQueue[1]) {
+    if (!this.playing) {
       await this.load();
     }
 

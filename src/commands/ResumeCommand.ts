@@ -5,7 +5,7 @@ import Command from '../models/Command';
 export default class HelpCommand extends Command {
   public readonly userPermissions: string[] = [];
   public data = new SlashCommandBuilder()
-    .setName('unpause')
+    .setName('resume')
     .setDescription('Display the queued songs.');
 
   public async execute(interaction) {

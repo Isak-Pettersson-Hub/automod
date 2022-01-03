@@ -43,6 +43,8 @@ export default class HelpCommand extends Command {
       song = await youtubeSearchAdapter.youtubeSearch(query);
     }
 
+    song.requestedBy = interaction.user;
+
     // Get the server MusicQueue if it exists.
     let guildMusicManager = this.app.queue.get(interaction.guild.id);
 
