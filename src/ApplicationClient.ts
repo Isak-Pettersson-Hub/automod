@@ -1,5 +1,3 @@
-import { Player } from 'discord-player';
-
 /* eslint-disable @typescript-eslint/no-var-requires */
 require('dotenv').config();
 import { readdirSync } from 'fs';

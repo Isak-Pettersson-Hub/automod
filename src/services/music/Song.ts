@@ -1,25 +1,23 @@
 export default class Song {
-  private _url: string;
-  private _title: string;
+  public readonly title: string;
+  public readonly url: string;
+  public readonly thumbnail: string;
+  public readonly description: string;
+  public readonly artist: string;
 
-  public constructor(url?: string, title?: string) {
-    this._title = title;
-    this._url = url;
+  public constructor(options: SongOptions) {
+    this.title = options.title;
+    this.url = options.url;
+    this.thumbnail = options.thumbnail;
+    this.description = options.description;
+    this.artist = options.artist;
   }
+}
 
-  public get title() {
-    return this._title;
-  }
-
-  public set title(title: string) {
-    this._title = title;
-  }
-
-  public get url() {
-    return this._url;
-  }
-
-  public set url(url: string) {
-    this._url = url;
-  }
+interface SongOptions {
+  title: string;
+  url: string;
+  thumbnail?: string;
+  description?: string;
+  artist?: string;
 }

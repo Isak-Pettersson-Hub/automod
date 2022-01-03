@@ -19,7 +19,6 @@ export default class HelpCommand extends Command {
         name: `${this.client.user.username} - Help Center`,
         iconURL: this.client.user.displayAvatarURL(),
       })
-      .setThumbnail(this.client.user.displayAvatarURL())
       .setDescription(
         "Automod is a powerful utility & moderation bot for Hollow's Discord."
       )

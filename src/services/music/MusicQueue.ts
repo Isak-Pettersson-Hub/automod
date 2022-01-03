@@ -1,10 +1,10 @@
-import MusicQueueConstructor from './MusicQueueConstructor';
+import GuildMusicManager from './GuildMusicManager';
 
 export default class MusicQueue {
-  private map: Map<string, MusicQueueConstructor>;
+  private map: Map<string, GuildMusicManager>;
 
   public constructor() {
-    this.map = new Map<string, MusicQueueConstructor>();
+    this.map = new Map<string, GuildMusicManager>();
   }
 
   /**
@@ -21,7 +21,7 @@ export default class MusicQueue {
    * @param id of the guild.
    * @param musicQueueConstructor
    */
-  public set(id: string, musicQueueConstructor: MusicQueueConstructor) {
+  public set(id: string, musicQueueConstructor: GuildMusicManager) {
     this.map.set(id, musicQueueConstructor);
   }
 
